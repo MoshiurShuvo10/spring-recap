@@ -99,4 +99,55 @@ We can restrict ref to only refer to an id of a bean. It should be nested inside
     <alias name="triangle" alias="triangle-alias"/> -----------> **[we can call this bean by, context.getBean("triangle-alias")]**
    </beans>
   ```
-    
+* **Instantiating Beans**
+IoC container can instantiate a bean by using following 3 ways:
+- Constructor
+```
+<bean id="exampleBean" class="com.moshiur.ExampleBean" />
+<bean id="exampleBeanTwo" class="com.moshiur.ExampleBeanTwo" />
+```
+- A static factory method
+```
+server.xml:
+------------
+<bean id="clientService" class="com.moshiur.ClientService" factory-method="createInstance" />
+
+ClientService.java:
+-------------------
+public class ClientService {
+  private static ClientService clientService ; 
+  private ClientService() { .... }
+  //static factory method
+  public static ClientService createInstance() {
+    if(clientService == null) {
+      clientService = new ClientService() ; 
+     }
+     return clientService ; 
+    } 
+  
+```
+- Instance factory method
+```
+ server.xml
+-----------
+<!-- the factory bean, which contains a method called createInstance() -->
+<bean id="serviceLocator" class="examples.DefaultServiceLocator">
+<!-- inject any dependencies required by this locator bean -->
+</bean>
+
+
+<!-- the bean to be created via the factory bean -->
+<bean id="clientService"
+factory-bean="serviceLocator"
+factory-method="createClientServiceInstance"/>
+
+ DefaultServiceLocator.java:
+------------------------------
+public class DefaultServiceLocator {
+  private static ClientService clientService = new ClientServiceImpl();
+  private DefaultServiceLocator() {}
+  public ClientService createClientServiceInstance() {
+  return clientService;
+  }
+}
+```

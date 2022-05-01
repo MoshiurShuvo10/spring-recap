@@ -1,17 +1,17 @@
-package beanScope;
+package Pojo;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 @Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class Employee {
-    private String name ;
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class MyBean {
+    private String name = "mrahman";
 
-    public Employee() {
-        System.out.println("Employee object created..");
+    public MyBean() {
+        System.out.println("MyBean created..");
     }
 
     public String getName() {

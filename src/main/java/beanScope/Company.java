@@ -1,10 +1,11 @@
 package beanScope;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Company {
+public abstract class Company {
 
     @Autowired
     private Employee employee;
@@ -13,8 +14,11 @@ public class Company {
         System.out.println("Company object created");
     }
 
+    @Lookup // spring's cglib will override this method at runtime and will return a Employee object.
+    abstract public Employee createEmployee() ;
+
     public Employee getEmployee() {
-        return employee;
+        return createEmployee() ;
     }
 
     public void setEmployee(Employee employee) {

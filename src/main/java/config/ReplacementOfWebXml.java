@@ -8,6 +8,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+// It's a configuration class for configuaring dispatcher servlet
 public class ReplacementOfWebXml implements WebApplicationInitializer {
     @Override
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
@@ -17,7 +18,7 @@ public class ReplacementOfWebXml implements WebApplicationInitializer {
         XmlWebApplicationContext xmlWebApplicationContext = new XmlWebApplicationContext() ;
         xmlWebApplicationContext.setConfigLocation("classpath:spring-config.xml");*/
 
-//        if my spring config file is in java confg,, then use the following approach
+//        if my spring config file is in java confg, then use the following approach
         AnnotationConfigWebApplicationContext annotationConfigWebApplicationContext = new AnnotationConfigWebApplicationContext() ;
         annotationConfigWebApplicationContext.register(ReplacementOfSpringConfig.class);
 

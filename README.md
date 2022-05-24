@@ -174,3 +174,27 @@
 		}
 	}
    ```
+
+## Initialize Dispatcher Servlet Without implementing ```WebApplicationInitializer``` | Configure Dispatcher Servlet with 2 lines of code
+   - We can extend ```AbstractAnnotationConfigDispatcherServletInitializer``` class to configure Dispatcher Servlet. 
+   ```
+   public class InitializeDispatcherServletWithoutWebApplicationInitializer 
+        extends AbstractAnnotationConfigDispatcherServletInitializer {
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[0];
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        Class[] configClasses = {SpringConfig.class} ;
+        return configClasses ;
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        String[] arr = {"/"} ;
+        return arr;
+    }
+}
+   ```
